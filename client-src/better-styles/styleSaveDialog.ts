@@ -320,7 +320,7 @@ function captureStyleValues(tabName: StylesAvailableTab) {
   checkpoint().with((value) => (style["checkpoint"] = value));
   prompt(tabName).with((value) => (style["prompt"] = value));
   negativePrompt(tabName).with((value) => (style["negativePrompt"] = value));
-  samplingMethod(tabName).value.with((value) => (style["samplingMethod"] = value));
+  samplingMethod(tabName).with((value) => (style["samplingMethod"] = value));
   samplingSteps(tabName).with((value) => (style["samplingSteps"] = value));
   cfgScale(tabName).with((value) => (style["cfgScale"] = value));
   seed(tabName).with((value) => (style["seed"] = value));

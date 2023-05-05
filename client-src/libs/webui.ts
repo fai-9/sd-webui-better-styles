@@ -163,6 +163,35 @@ export function createCheckboxAccessor(selector: string): ValueAccessor<boolean>
   });
 }
 
+export function createDropdownAccessor(selector: string): ValueAccessor<string> {
+  const element = getElement(selector);
+  if (!(element instanceof HTMLElement)) {
+    return createEmptyAccessor();
+  }
+  return createValueAccessor({
+    get: () => element.querySelector(".single-select").innerText,
+    set: async (value) => {
+      // Show dropdown list
+      const opener = element.querySelector("input");
+      if (opener == null) {
+          return false;
+      }
+      opener.dispatchEvent(new MouseEvent("mousedown"));
+      // Wait for list opened
+      await new Promise(resolve => setTimeout(resolve, 500));
+      // Find the target
+      const target = element.querySelector(`li[data-value="${value}"]`);
+      if (target == null) {
+          console.log(`target not found: ${value}`);
+          return false;
+      }
+      // Apply value
+      target.dispatchEvent(new MouseEvent("mousedown", { bubbles: true }));
+      return true;
+    },
+  });
+}
+
 /**
  * A regular expression to match a trailing comma followed by optional whitespace.
  */
@@ -191,7 +220,7 @@ export function applyStyle(tabName: StylesAvailableTab, style: Style): void {
   }
   if (style.samplingMethod) {
     const accessor = samplingMethod(tabName);
-    accessor.value.set(style.samplingMethod);
+    accessor.set(style.samplingMethod);
   }
   if (style.samplingSteps) {
     const accessor = samplingSteps(tabName);
