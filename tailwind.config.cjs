@@ -6,6 +6,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  darkMode: 'media',
   corePlugins: {
     preflight: false,
   },
