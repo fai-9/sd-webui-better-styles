@@ -5,6 +5,7 @@ import {
   createSelectAccessor,
   createNumberInputAccessor,
   createCheckboxAccessor,
+  createDropdownAccessor,
   SelectAccessor,
 } from "../libs/webui";
 
@@ -42,8 +43,8 @@ export function negativePrompt(tabName: StylesAvailableTab): ValueAccessor<strin
   return createTextAreaAccessor(`#${tabName}_neg_prompt textarea`);
 }
 
-export function samplingMethod(tabName: StylesAvailableTab): SelectAccessor {
-  return createSelectAccessor(`#${tabName}_sampling select`);
+export function samplingMethod(tabName: StylesAvailableTab): ValueAccessor<string> {
+  return createDropdownAccessor(`#sampler_selection_${tabName}`);
 }
 
 export function samplingSteps(tabName: StylesAvailableTab): ValueAccessor<number> {
