@@ -60,9 +60,31 @@ export function showStyleSaveDialog() {
   parametersLabel.textContent = _("Save these parameters as style");
   parameters.appendChild(parametersLabel);
 
+  const parametersAllContainer = document.createElement("div");
+  parameters.appendChild(parametersAllContainer);
+
+  const parametersAllLabel = document.createElement("label");
+  parametersAllLabel.classList.add("checkbox-wrapper");
+  parametersAllContainer.appendChild(parametersAllLabel);
+
+  const parametersAllInput = document.createElement("input");
+  parametersAllInput.type = "checkbox";
+  parametersAllLabel.appendChild(parametersAllInput);
+
+  const parametersAllInputLabel = document.createElement("span");
+  parametersAllInputLabel.classList.add("label");
+  parametersAllInputLabel.textContent = _("All");
+  parametersAllInput.after(parametersAllInputLabel);
+
   const parametersFields = document.createElement("ul");
   parametersFields.classList.add("parameter-fields");
   parameters.appendChild(parametersFields);
+
+  parametersAllInput.addEventListener("change", () => {
+    parametersFields.querySelectorAll("input[type=checkbox]").forEach((input) => {
+      input.checked = parametersAllInput.checked;
+    });
+  });
 
   const samplingMethod = createCheckbox(_("Sampling method"));
   parametersFields.appendChild(samplingMethod.element);
